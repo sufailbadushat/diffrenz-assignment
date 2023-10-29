@@ -1,8 +1,8 @@
 package com.assignment.diffrenz.controller;
 
+import com.assignment.diffrenz.dto.request.DateRangeStatementAccountDTO;
 import com.assignment.diffrenz.service.StatementService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,8 +16,15 @@ public class StatementController {
     @Autowired
     private StatementService statementService;
 
+    @PostMapping("/admin/between-dates")
+    public ResponseEntity<?> getBetweenDates(@RequestBody DateRangeStatementAccountDTO dateRange) {
 
-    @GetMapping("/user/getAll")
+            return new ResponseEntity<>(statementService.getBetweenDates(dateRange), HttpStatus.OK);
+
+    }
+
+
+    @GetMapping("/user/get-all")
     public ResponseEntity<?> getAllDetails() {
         try {
             LocalDate threeMonthsAgo = LocalDate.now().minusMonths(3);

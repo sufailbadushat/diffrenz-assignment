@@ -2,16 +2,13 @@ package com.assignment.diffrenz.service;
 
 import com.assignment.diffrenz.dto.AccountDtoResponse;
 import com.assignment.diffrenz.dto.StatementDtoResponse;
+import com.assignment.diffrenz.dto.request.DateRangeStatementAccountDTO;
 import com.assignment.diffrenz.entity.Account;
 import com.assignment.diffrenz.repository.AccountRepository;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.convention.MatchingStrategies;
-import org.modelmapper.spi.MatchingStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,6 +16,9 @@ import java.util.stream.Collectors;
 public class StatementService {
     @Autowired
     private AccountRepository accountRepository;
+    @Autowired
+    private ModelMapper modelMapper;
+
 
 
     public List<AccountDtoResponse> getOnAccountId(Long id) {
@@ -29,14 +29,39 @@ public class StatementService {
 
     }
 
-    @Autowired
-    private ModelMapper modelMapper;
+
     public List<AccountDtoResponse> getThreeMonthsAgo(String threeMonthsAgo) {
         return accountRepository.findThreeMonthsBack(threeMonthsAgo)
                 .stream()
                 .map(this::accountDTOConverter)
                 .collect(Collectors.toList());
     }
+
+    public List<AccountDtoResponse> getBetweenDates(DateRangeStatementAccountDTO dateRange) {
+
+        List<Account> list = accountRepository.findBetweenDates(dateRange.getId(), dateRange.getFromDate(),
+                dateRange.getToDate());
+
+        return list.stream()
+                .map(this::accountDTOConverter)
+                .collect(Collectors.toList());
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //Convert individual Account and Statement to Dto
@@ -50,6 +75,7 @@ public class StatementService {
         dtoAcc.setStatements(dtoState);
         return dtoAcc;
     }
+
 
 
 }

@@ -1,6 +1,5 @@
 package com.assignment.diffrenz.dto;
 
-import com.assignment.diffrenz.entity.Account;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
