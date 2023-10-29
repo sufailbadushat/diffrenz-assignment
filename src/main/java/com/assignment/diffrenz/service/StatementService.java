@@ -2,6 +2,7 @@ package com.assignment.diffrenz.service;
 
 import com.assignment.diffrenz.dto.AccountDtoResponse;
 import com.assignment.diffrenz.dto.StatementDtoResponse;
+import com.assignment.diffrenz.dto.request.AmountRangeStatementAccount;
 import com.assignment.diffrenz.dto.request.DateRangeStatementAccountDTO;
 import com.assignment.diffrenz.entity.Account;
 import com.assignment.diffrenz.repository.AccountRepository;
@@ -47,7 +48,16 @@ public class StatementService {
                 .collect(Collectors.toList());
     }
 
+    public List<AccountDtoResponse> getBetweenAmount(AmountRangeStatementAccount amountRange) {
 
+
+
+        return accountRepository.findBetweenAmounts(amountRange.getAccountId(),
+                amountRange.getFromAmount(),
+                amountRange.getToAmount())
+                .stream().map(this::accountDTOConverter)
+                .collect(Collectors.toList());
+    }
 
 
 

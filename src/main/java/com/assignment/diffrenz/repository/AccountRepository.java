@@ -1,12 +1,12 @@
 package com.assignment.diffrenz.repository;
 
+import com.assignment.diffrenz.dto.AccountDtoResponse;
 import com.assignment.diffrenz.entity.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface AccountRepository extends JpaRepository<Account, Long> {
 
@@ -21,4 +21,12 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
                               @Param("fromDate") String fromDate,
                               @Param("toDate") String toDate
     );
+
+
+    @Query("SELECT a FROM Account a JOIN FETCH a.statements s WHERE a.id =:accountId " +
+            "AND CAST(s.amount AS integer) BETWEEN CAST(:fromAmount AS integer) AND CAST(:toAmount AS integer)")
+    List<Account> findBetweenAmounts(@Param("accountId") Long accountId,
+                                     @Param("fromAmount") String fromAmount,
+                                     @Param("toAmount") String toAmount);
+
 }

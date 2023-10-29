@@ -1,5 +1,6 @@
 package com.assignment.diffrenz.controller;
 
+import com.assignment.diffrenz.dto.request.AmountRangeStatementAccount;
 import com.assignment.diffrenz.dto.request.DateRangeStatementAccountDTO;
 import com.assignment.diffrenz.service.StatementService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,20 @@ public class StatementController {
     @PostMapping("/admin/between-dates")
     public ResponseEntity<?> getBetweenDates(@RequestBody DateRangeStatementAccountDTO dateRange) {
 
+        try {
             return new ResponseEntity<>(statementService.getBetweenDates(dateRange), HttpStatus.OK);
+        } catch (Exception e) {
+            return errorResponse();
+        }
+    }
 
+    @PostMapping("/admin/between-amount")
+    public ResponseEntity<?> getBetweenAmounts(@RequestBody AmountRangeStatementAccount amountRange) {
+        try {
+            return new ResponseEntity<>(statementService.getBetweenAmount(amountRange),HttpStatus.OK);
+        } catch (Exception e) {
+            return errorResponse();
+        }
     }
 
 
@@ -40,18 +53,11 @@ public class StatementController {
     public ResponseEntity<?> getAllBasedOnAccId(@PathVariable Long id) {
         try {
             return new ResponseEntity<>(statementService.getOnAccountId(id), HttpStatus.OK);
-        }catch (Exception e) {
+        } catch (Exception e) {
             return errorResponse();
         }
 
     }
-
-
-
-
-
-
-
 
 
     public ResponseEntity<String> errorResponse() {
