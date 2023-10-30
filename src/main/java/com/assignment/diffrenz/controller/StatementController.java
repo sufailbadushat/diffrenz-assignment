@@ -6,6 +6,7 @@ import com.assignment.diffrenz.service.StatementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -16,6 +17,11 @@ import java.time.format.DateTimeFormatter;
 public class StatementController {
     @Autowired
     private StatementService statementService;
+
+    @GetMapping
+    public String welcomePage() {
+        return "HELLO, WELCOME!";
+    }
 
     @PostMapping("/admin/between-dates")
     public ResponseEntity<?> getBetweenDates(@RequestBody DateRangeStatementAccountDTO dateRange) {
