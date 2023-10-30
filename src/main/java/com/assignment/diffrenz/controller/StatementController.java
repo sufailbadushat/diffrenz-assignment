@@ -2,12 +2,13 @@ package com.assignment.diffrenz.controller;
 
 import com.assignment.diffrenz.dto.request.AmountRangeStatementAccount;
 import com.assignment.diffrenz.dto.request.DateRangeStatementAccountDTO;
+import com.assignment.diffrenz.exception.DataNotFoundException;
 import com.assignment.diffrenz.service.StatementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -28,8 +29,10 @@ public class StatementController {
 
         try {
             return new ResponseEntity<>(statementService.getBetweenDates(dateRange), HttpStatus.OK);
+        } catch (DataNotFoundException e) {
+            return errorResponse(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (Exception e) {
-            return errorResponse();
+            return errorResponse(HttpStatus.INTERNAL_SERVER_ERROR, "An error occurred: " + e.getMessage());
         }
     }
 
@@ -37,8 +40,10 @@ public class StatementController {
     public ResponseEntity<?> getBetweenAmounts(@RequestBody AmountRangeStatementAccount amountRange) {
         try {
             return new ResponseEntity<>(statementService.getBetweenAmount(amountRange),HttpStatus.OK);
+        } catch (DataNotFoundException e) {
+            return errorResponse(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (Exception e) {
-            return errorResponse();
+            return errorResponse(HttpStatus.INTERNAL_SERVER_ERROR, "An error occurred: " + e.getMessage());
         }
     }
 
@@ -50,23 +55,27 @@ public class StatementController {
             DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
             String threeMonthsAgoStr = threeMonthsAgo.format(dateFormatter);
             return new ResponseEntity<>(statementService.getThreeMonthsAgo(threeMonthsAgoStr), HttpStatus.OK);
+        } catch (DataNotFoundException ex) {
+            return errorResponse(HttpStatus.NOT_FOUND, ex.getMessage());
         } catch (Exception e) {
-            return errorResponse();
+            return errorResponse(HttpStatus.INTERNAL_SERVER_ERROR, "An error occurred: " + e.getMessage());
         }
     }
 
     @GetMapping("/admin/{id}")
-    public ResponseEntity<?> getAllBasedOnAccId(@PathVariable Long id) {
+    public ResponseEntity<?> getAllBasedOnAccId (@PathVariable Long id){
         try {
             return new ResponseEntity<>(statementService.getOnAccountId(id), HttpStatus.OK);
+        } catch (DataNotFoundException ex) {
+            return errorResponse(HttpStatus.NOT_FOUND, ex.getMessage());
         } catch (Exception e) {
-            return errorResponse();
+            return errorResponse(HttpStatus.INTERNAL_SERVER_ERROR, "An error occurred: " + e.getMessage());
         }
 
     }
 
 
-    public ResponseEntity<String> errorResponse() {
-        return new ResponseEntity<>("Something went wrong :(", HttpStatus.INTERNAL_SERVER_ERROR);
+    private ResponseEntity<?> errorResponse(HttpStatus status, String message) {
+        return new ResponseEntity<>(message, status);
     }
 }
