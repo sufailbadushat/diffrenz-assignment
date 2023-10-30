@@ -24,9 +24,9 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
 
 
     @Query("SELECT a FROM Account a JOIN FETCH a.statements s WHERE a.id =:accountId " +
-            "AND CAST(s.amount AS integer) BETWEEN CAST(:fromAmount AS integer) AND CAST(:toAmount AS integer)")
+            "AND CAST(s.amount AS double) BETWEEN CAST(:fromAmount AS double) AND CAST(:toAmount AS integer)")
     List<Account> findBetweenAmounts(@Param("accountId") Long accountId,
-                                     @Param("fromAmount") String fromAmount,
-                                     @Param("toAmount") String toAmount);
+                                     @Param("fromAmount") Double fromAmount,
+                                     @Param("toAmount") Double toAmount);
 
 }
