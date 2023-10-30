@@ -1,5 +1,6 @@
 package com.assignment.diffrenz.config;
 
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -51,9 +52,14 @@ public class WebSecurityConfig {
                 .httpBasic(withDefaults())
                 .formLogin(log ->
                         log.defaultSuccessUrl("/api"))
+                .exceptionHandling(ex ->
+                        ex.accessDeniedPage("/api/access-denied"));
 
-                ;
-
+//                        ex.accessDeniedHandler((request, response, accessDeniedException) -> {
+//                            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+//                            response.setContentType("text/plain");
+//                            response.getWriter().write("Access Denied: You do not have the necessary role to access this resource.");
+//                        }))
 
         return http.build();
     }

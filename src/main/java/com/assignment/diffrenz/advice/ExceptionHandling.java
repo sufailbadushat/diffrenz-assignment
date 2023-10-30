@@ -32,4 +32,10 @@ public class ExceptionHandling {
         errorMap.put("errorMessage", ex.getMessage());
         return errorMap;
     }
+
+
+//    @ExceptionHandler(JsonParseExceptionHandler.class)
+//    public ResponseEntity<String> handleJsonParseException(JsonParseExceptionHandler ex) {
+//        return new ResponseEntity<>("Invalid JSON input: " + ex.getMessage(), HttpStatus.BAD_REQUEST);
+//    }
 }
