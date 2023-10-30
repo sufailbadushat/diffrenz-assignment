@@ -2,7 +2,6 @@ package com.assignment.diffrenz.dto.request;
 
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import lombok.Data;

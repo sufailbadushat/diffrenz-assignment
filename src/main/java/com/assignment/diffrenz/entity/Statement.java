@@ -3,9 +3,7 @@ package com.assignment.diffrenz.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 @Data
 @AllArgsConstructor

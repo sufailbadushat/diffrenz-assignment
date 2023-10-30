@@ -1,4 +1,4 @@
-package com.assignment.diffrenz.dto;
+package com.assignment.diffrenz.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

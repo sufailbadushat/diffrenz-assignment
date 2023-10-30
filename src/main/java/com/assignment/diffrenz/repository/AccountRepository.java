@@ -1,6 +1,5 @@
 package com.assignment.diffrenz.repository;
 
-import com.assignment.diffrenz.dto.AccountDtoResponse;
 import com.assignment.diffrenz.entity.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

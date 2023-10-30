@@ -3,15 +3,11 @@ package com.assignment.diffrenz.controller;
 import com.assignment.diffrenz.dto.request.AmountRangeStatementAccount;
 import com.assignment.diffrenz.dto.request.DateRangeStatementAccountDTO;
 import com.assignment.diffrenz.exception.DataNotFoundException;
-import com.assignment.diffrenz.service.StatementService;
+import com.assignment.diffrenz.service.AccountService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -20,9 +16,9 @@ import java.time.format.DateTimeFormatter;
 
 @RestController
 @RequestMapping("/api")
-public class StatementController {
+public class AccountController {
     @Autowired
-    private StatementService statementService;
+    private AccountService statementService;
 
     @GetMapping
     public String welcomePage() {

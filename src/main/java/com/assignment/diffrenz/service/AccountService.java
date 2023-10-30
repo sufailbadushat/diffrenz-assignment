@@ -1,7 +1,7 @@
 package com.assignment.diffrenz.service;
 
-import com.assignment.diffrenz.dto.AccountDtoResponse;
-import com.assignment.diffrenz.dto.StatementDtoResponse;
+import com.assignment.diffrenz.dto.response.AccountDtoResponse;
+import com.assignment.diffrenz.dto.response.StatementDtoResponse;
 import com.assignment.diffrenz.dto.request.AmountRangeStatementAccount;
 import com.assignment.diffrenz.dto.request.DateRangeStatementAccountDTO;
 import com.assignment.diffrenz.entity.Account;
@@ -16,7 +16,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class StatementService {
+public class AccountService {
     @Autowired
     private AccountRepository accountRepository;
     @Autowired
