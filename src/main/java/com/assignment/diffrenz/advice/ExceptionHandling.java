@@ -34,6 +34,7 @@ public class ExceptionHandling {
     }
 
 
+
 //    @ExceptionHandler(JsonParseExceptionHandler.class)
 //    public ResponseEntity<String> handleJsonParseException(JsonParseExceptionHandler ex) {
 //        return new ResponseEntity<>("Invalid JSON input: " + ex.getMessage(), HttpStatus.BAD_REQUEST);

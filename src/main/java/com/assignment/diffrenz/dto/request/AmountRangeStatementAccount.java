@@ -1,8 +1,7 @@
 package com.assignment.diffrenz.dto.request;
 
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,14 +10,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class AmountRangeStatementAccount {
-    @Id
-    @PositiveOrZero
-    @Min(1)
+    @Min(value = 1, message = "accountId must be greater than or equal to 1")
+    @NotNull(message = "accountId is required")
     private Long accountId;
 
-    @PositiveOrZero
+    @DecimalMin(value = "-1.7976931348623157E308", message = "Value must be a valid number")
+    @DecimalMax(value = "1.7976931348623157E308", message = "Value must be a valid number")
     private Double fromAmount;
 
-    @PositiveOrZero
+
+    @DecimalMin(value = "-1.7976931348623157E308", message = "Value must be a valid number")
+    @DecimalMax(value = "1.7976931348623157E308", message = "Value must be a valid number")
     private Double toAmount;
 }

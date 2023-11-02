@@ -6,3 +6,4 @@ public class DataNotFoundException extends Exception{
         super(msg);
     }
 }
+

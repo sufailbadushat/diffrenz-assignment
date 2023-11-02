@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import util.ValueMapper;
 
@@ -23,6 +24,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/api")
+@Validated
 public class AccountController {
     @Autowired
     private AccountService statementService;
@@ -35,7 +37,7 @@ public class AccountController {
 
 // Admin can access data based on account ID as path variable
     @GetMapping("/admin/{id}")
-    public ResponseEntity<?> getAllBasedOnAccId(@PathVariable Long id) {
+    public ResponseEntity<?> getAllBasedOnAccId(@PathVariable Long id) throws DataNotFoundException{
 
         log.info("AccountController::getAllBasedOnAccId execution started for Id {}", id);
         try {
@@ -43,9 +45,6 @@ public class AccountController {
             log.info("AccountController::getAllBasedOnAccId by id {} response {}", id,ValueMapper
                     .jsonAsString(dtoResponses));
             return new ResponseEntity<>(dtoResponses, HttpStatus.OK);
-        } catch (DataNotFoundException ex) {
-            log.error("AccountController::getAllBasedOnAccId, Exception message: {}", ex.getMessage());
-            return errorResponse(HttpStatus.NOT_FOUND, ex.getMessage());
         } catch (Exception e) {
             log.error("AccountController::getAllBasedOnAccId, Exception occurred exception message {}", e.getMessage());
             return errorResponse(HttpStatus.INTERNAL_SERVER_ERROR, "An error occurred: " + e.getMessage());
