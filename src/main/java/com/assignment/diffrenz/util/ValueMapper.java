@@ -1,4 +1,4 @@
-package util;
+package com.assignment.diffrenz.util;
 
 import com.assignment.diffrenz.dto.response.AccountDtoResponse;
 import com.assignment.diffrenz.dto.response.StatementDtoResponse;
