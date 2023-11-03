@@ -21,6 +21,11 @@ Checkout master branch
 ```
 src/main/java/com.assignment.diffrenz/DiffrenzApplication
 ```
+Make sure the application started successfully at **port 8081** without any error.
+You can access the application on a web browser using URL
+```
+http://localhost:8081/api
+```
 ### Or use maven commands
 ```
 - mvn clean install
@@ -35,3 +40,10 @@ Run the test files in the following path:
 ```
 ### Api Testing
 Use tools like Postman to manually test API endpoints.
+
+## 4. Available Endpoints
+- **GET** /api: Returns Home page
+- **GET** /api/admin/{id}: Returns data based on ID
+- **POST** /api/admin/between-dates: Returns based on ID and Between Dates - Admin can specify either ID or Full fields (id, fromDate, toDate).
+- **POST** /api/admin/between-amounts: Returns based on ID and Between Amounts - Admin can specify either ID or Full fields (id, fromAmount, toAmount).
+- **POST** /api/user/get-data: Returns three months back data, if the user specifies any parameter it will throw unauthorized.
