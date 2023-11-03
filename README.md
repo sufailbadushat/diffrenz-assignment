@@ -4,8 +4,9 @@
 ### Prerequisites
 ```
 -	Java JDK 17
--	IDEA (E.g., IntelliJ IDEA, STS)
+-	Maven
 -	MySQL database
+-	IDEA (Eg., IntelliJ IDEA, STS)
 ```
 ### Clone this Repository
 ```
@@ -46,10 +47,6 @@ Use tools like Postman to manually test API endpoints.
 - Build project
 ```
 - mvn clean install
-```
-- OR run the main file -  IDEA contains Maven if you haven't installed mvn on your system.
-```
-- src/main/java/com.assignment.diffrenz/DiffrenzApplication
 ```
 ### Open the html file on a web browser
 ```
