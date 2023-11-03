@@ -7,9 +7,9 @@
 -	IDEA (E.g., IntelliJ IDEA, STS)
 -	MySQL database
 ```
-### Clone the Repository
+### Clone this Repository
 ```
-- https://github.com/sufailbadushat/diffrenz-assignment.git
+- git clone https://github.com/sufailbadushat/diffrenz-assignment.git
 Checkout master branch
 - git checkout master
 ```
