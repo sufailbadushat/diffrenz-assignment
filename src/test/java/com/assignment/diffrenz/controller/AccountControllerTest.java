@@ -55,7 +55,7 @@ class AccountControllerTest {
 
     @BeforeEach
     public void setUp() {
-       AccountService accountService1 = new AccountService();
+        AccountService accountService1 = new AccountService();
     }
 
     Statement STATEMENT_1 = new Statement(52L, "10-12-2020", "10");
@@ -72,7 +72,7 @@ class AccountControllerTest {
      * Method under test: {@link AccountController#welcomePage()}
      */
     @Test
- //   @WithMockUser
+    //   @WithMockUser
     void testWelcomePage() throws Exception {
 
         String response = accountController.welcomePage();
@@ -110,16 +110,16 @@ class AccountControllerTest {
     void testGetBetweenDates() throws Exception {
         AccountDtoResponse accountDtoResponse = new AccountDtoResponse(1L, "savings", "12345", List.of(STATEMENTDTO_1));
         DateRangeStatementAccountDTO date = new DateRangeStatementAccountDTO(1L, "10-12-2022", "12-01-2026");
-       // when(accountService.getOnAccountId(date.getId())).thenReturn(accountDtoResponse);
+        // when(accountService.getOnAccountId(date.getId())).thenReturn(accountDtoResponse);
 
         when(accountService.getBetweenDates(date)).thenReturn(ACCOUNTDTO_1);
 
         ResponseEntity<?> response = accountController.getBetweenDates(date);
 
-
         assertEquals(HttpStatus.OK, response.getStatusCode());
 
     }
+
     @Test
     void testGetBetweenDatesById() throws Exception {
         AccountDtoResponse accountDtoResponse = new AccountDtoResponse(1L, "savings", "12345", List.of(STATEMENTDTO_1));
@@ -160,7 +160,7 @@ class AccountControllerTest {
     @Test
     void testGetBetweenAmounts() throws Exception {
         AmountRangeStatementAccount amount = new AmountRangeStatementAccount(1L, 10D, 100D);
-        AccountDtoResponse expected =  new AccountDtoResponse(1L, "savings", "12345", List.of(STATEMENTDTO_1));
+        AccountDtoResponse expected = new AccountDtoResponse(1L, "savings", "12345", List.of(STATEMENTDTO_1));
         when(accountService.getBetweenAmount(amount)).thenReturn(ACCOUNTDTO_1);
 
         ResponseEntity<?> response = accountController.getBetweenAmounts(amount);
@@ -177,18 +177,15 @@ class AccountControllerTest {
         when(accountService.getOnAccountId(amountRangeStatementAccount.getAccountId())).thenThrow(DataNotFoundException.class);
 
         ResponseEntity<?> response = accountController.getBetweenAmounts(amountRangeStatementAccount);
-       assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
     @Test
     void testGetBetweenAmounts_AccountServiceGetBetweenAmountThrowsDataNotFoundException() throws Exception {
         AmountRangeStatementAccount amountRangeStatementAccount = new AmountRangeStatementAccount(1L, 20D, 100D);
-        when(accountService.getBetweenAmount(amountRangeStatementAccount))
-                .thenThrow(DataNotFoundException.class);
+        when(accountService.getBetweenAmount(amountRangeStatementAccount)).thenThrow(DataNotFoundException.class);
 
         ResponseEntity<?> response = accountController.getBetweenAmounts(amountRangeStatementAccount);
-
-
     }
 
     @Test
@@ -207,6 +204,29 @@ class AccountControllerTest {
         ResponseEntity<?> response = accountController.userAccessData(null);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
+    }
+
+    @Test
+    void testUserAccessData_Unauthorized() throws Exception {
+        AmountRangeStatementAccount dto = new AmountRangeStatementAccount(1L, 2D, 463D);
+        String errorMsg = "{\"error\": Unauthorized\", \"message\": \"No request body allowed\"}";
+
+        ResponseEntity<?> response = accountController.userAccessData(dto);
+
+        assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
+        assertEquals(errorMsg, response.getBody());
+    }
+
+    @Test
+    void testUserAccessData_ThrowsDataNotFoundException() throws Exception {
+        LocalDate threeMonthsAgo = LocalDate.now().minusMonths(3);
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String threeMonthsAgoStr = threeMonthsAgo.format(dateFormatter);
+        when(accountService.getThreeMonthsAgo(threeMonthsAgoStr)).thenThrow(DataNotFoundException.class);
+
+        ResponseEntity<?> response = accountController.userAccessData(null);
+
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
 
