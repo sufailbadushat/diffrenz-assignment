@@ -41,7 +41,22 @@ Run the test files in the following path:
 ### Api Testing
 Use tools like Postman to manually test API endpoints.
 
-## 4. Available Endpoints
+## 4. Code Coverage
+### Jacaco
+- Build project
+```
+- mvn clean install
+```
+- OR run the main file -  IDEA contains Maven if you haven't installed mvn on your system.
+```
+- src/main/java/com.assignment.diffrenz/DiffrenzApplication
+```
+### Open the html file on a web browser
+```
+- target/site/jacoco/index.html 
+```
+you can see code coverage repot on there.
+## 5. Available Endpoints
 - **GET** /api: Returns Home page
 - **GET** /api/admin/{id}: Returns data based on ID
 - **POST** /api/admin/between-dates: Returns based on ID and Between Dates - Admin can specify either ID or Full fields (id, fromDate, toDate).
