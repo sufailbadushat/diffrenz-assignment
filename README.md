@@ -16,14 +16,17 @@ Checkout master branch
 ```
 ## 2. Database Setup
  - Create a new database named **bankdb**. 
-
+ - You can import the following SQL file into the MySQL server to add dummy data.
+```
+-    database/bankdb.sql
+```
 ## 3. Import Cloned Project Into IDEA
 ### Run the following Java Spring Boot main file
 ```
 src/main/java/com.assignment.diffrenz/DiffrenzApplication
 ```
 Make sure the application started successfully at **port 8081** without any error.
-You can access the application on a web browser using URL
+You can access the application on a web browser using the following URL
 ```
 http://localhost:8081/api
 ```
@@ -43,7 +46,7 @@ Run the test files in the following path:
 Use tools like Postman to manually test API endpoints.
 
 ## 4. Code Coverage
-### Jacaco
+### Jacoco
 - Build project
 ```
 - mvn clean install
@@ -52,7 +55,7 @@ Use tools like Postman to manually test API endpoints.
 ```
 - target/site/jacoco/index.html 
 ```
-you can see code coverage repot on there.
+you can see code coverage report on there.
 ## 5. Available Endpoints
 - **GET** /api: Returns Home page
 - **GET** /api/admin/{id}: Returns data based on ID
